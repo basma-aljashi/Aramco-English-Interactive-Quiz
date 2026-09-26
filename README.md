@@ -1,4 +1,4 @@
-# English Interactive Quiz – Advantage Academy
+# English Interactive Quiz ( Advantage Academy )
 
 ## Overview
 
