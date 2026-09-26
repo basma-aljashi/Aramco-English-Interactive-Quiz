@@ -27,24 +27,23 @@ The quiz focuses on:
 
 The idea was discussed with the supervisors, and their feedback was taken into consideration during the development of the quiz. The concept received positive feedback from the supervisors.
 
-## Student Experience
+## How the Quiz Works
 
-The student starts by selecting the class, entering their name, and choosing the unit they want to practice.
+The quiz follows a simple process:
 
-Before starting the quiz, students can review important grammar topics. The quiz then presents questions based on the selected unit.
+1. The student selects the class and enters their name.
+2. The student chooses the unit they want to practice.
+3. The student can review the related grammar topics before starting.
+4. The quiz presents questions based on the selected unit.
+5. The student selects and submits an answer.
+6. If the answer is incorrect, the student receives feedback and an explanation.
+7. The student can use a tip when additional help is needed.
+8. The student can try the question again and continue learning from the mistake.
+9. The student moves to the next question using the navigation button.
+10. A built-in timer keeps track of the available time.
+11. The student receives a final result after completing the quiz.
 
-During the quiz, the student can:
-
-1. Read the question and choose an answer.
-2. Use a tip when they need help.
-3. Submit the answer and receive feedback.
-4. Review the explanation when an answer is incorrect.
-5. Try again and continue learning from the mistake.
-6. Move to the next question using the navigation button.
-7. Answer the questions within the available time using the built-in timer.
-8. View the final result after completing the quiz.
-
-This structure connects practice with assessment and gives students an opportunity to understand their mistakes instead of only receiving a final score.
+This process connects practice with assessment and gives students an opportunity to learn from their mistakes instead of only receiving a final score.
 
 ## Main Features
 
@@ -52,7 +51,7 @@ This structure connects practice with assessment and gives students an opportuni
 - Questions covering Units 1–3
 - Grammar review before starting the quiz
 - Built-in timer
-- Tips for questions that need additional support
+- Tips for additional support
 - Immediate feedback after answering
 - Explanations for incorrect answers
 - Opportunity to try again
@@ -86,6 +85,12 @@ The quiz includes English topics such as:
 
 Python was used for the main application logic, while Flask, HTML, CSS, and JavaScript were used for the web-based version of the quiz. CSV was used to store quiz results.
 
+## Learning and Assessment
+
+The quiz was designed to connect assessment with learning. Instead of only showing whether an answer is right or wrong, the system provides tips and explanations to help students understand their mistakes and continue practicing.
+
+The recorded results also provide a way to review student performance and identify areas where additional practice may be needed.
+
 ## Application Structure
 
 ```text
@@ -117,12 +122,6 @@ Contains the original Python interactive quiz application developed using Tkinte
 ### requirements.txt
 
 Contains the Python packages required to run the web version of the application.
-
-## Learning and Assessment
-
-The quiz was designed to connect assessment with learning. Instead of only showing whether an answer is right or wrong, the system provides tips and explanations to help students understand their mistakes and continue practicing.
-
-The recorded results also provide a way to review student performance and identify areas where additional practice may be needed.
 
 ## Project Context
 
