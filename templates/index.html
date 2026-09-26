@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>English Interactive Quiz - Grade 10</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0fafb;
+            color: #00334d;
+        }
+
+        header {
+            background: #005075;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header p {
+            margin: 6px 0 0;
+            color: #ffecb3;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .primary {
+            background: #00a38a;
+            color: white;
+        }
+
+        .secondary {
+            background: #0077b6;
+            color: white;
+        }
+
+        .warning {
+            background: #ffe082;
+            color: #222;
+        }
+
+        .option {
+            width: 100%;
+            text-align: left;
+            background: white;
+            border: 1px solid #ccc;
+            margin: 7px 0;
+        }
+
+        .option:hover {
+            background: #e1f5fe;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .rules {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .rule {
+            padding: 18px;
+            border-radius: 10px;
+        }
+
+        .rule:nth-child(1) {
+            background: #e0f2f1;
+        }
+
+        .rule:nth-child(2) {
+            background: #e3f2fd;
+        }
+
+        .rule:nth-child(3) {
+            background: #fff3e0;
+        }
+
+        .rule:nth-child(4) {
+            background: #f1f8e9;
+        }
+
+        .timer {
+            font-weight: bold;
+            color: #c62828;
+            margin-bottom: 15px;
+        }
+
+        .progress {
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #e0f7fa;
+        }
+
+        .success {
+            color: #2e7d32;
+        }
+
+        .error {
+            color: #c62828;
+        }
+
+        .score {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        @media (max-width: 700px) {
+            .rules {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                display: block;
+            }
+
+            .top-row {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>English Interactive Quiz - Grade 10</h1>
+        <p>Read carefully and choose the correct answer.</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- Start -->
+    <section id="startScreen" class="card">
+        <h2>English Quiz - Term 1</h2>
+
+        <label for="classCode">Class / Session</label>
+
+        <select id="classCode">
+            {% for class_code in class_codes %}
+                <option value="{{ class_code }}">{{ class_code }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="studentName">Student Name</label>
+
+        <select id="studentName">
+            <option value="">Select your name</option>
+
+            {% for student in students %}
+                <option value="{{ student }}">{{ student }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="unit">Unit</label>
+
+        <select id="unit">
+            <option value="All units">All units</option>
+            <option value="Unit 1">Unit 1</option>
+            <option value="Unit 2">Unit 2</option>
+            <option value="Unit 3">Unit 3</option>
+        </select>
+
+        <p>
+            You will first review the grammar rules and then answer
+            timed questions with hints and explanations.
+        </p>
+
+        <button class="primary" onclick="startQuiz()">
+            Review Grammar →
+        </button>
+
+        <p id="startMessage" class="error"></p>
+    </section>
+
+
+    <!-- Grammar Review -->
+    <section id="reviewScreen" class="card hidden">
+
+        <h2>Grammar Map for This Quiz</h2>
+
+        <p>
+            Focus on these rules. They appear in the quiz questions.
+        </p>
+
+        <div class="rules">
+
+            <div class="rule">
+                <h3>Verb "be" - am / is / are</h3>
+
+                <p>I → am</p>
+                <p>He / She / It → is</p>
+                <p>We / You / They → are</p>
+            </div>
+
+            <div class="rule">
+                <h3>There is / There are</h3>
+
+                <p>There is + singular noun.</p>
+                <p>There are + plural noun.</p>
+            </div>
+
+            <div class="rule">
+                <h3>Present Simple</h3>
+
+                <p>Do you ...?</p>
+                <p>He / She / It → verb + s</p>
+                <p>Plural subjects → base verb</p>
+            </div>
+
+            <div class="rule">
+                <h3>Prepositions & Transport</h3>
+
+                <p>on Monday</p>
+                <p>at 7:30</p>
+                <p>by bus / by car / by train</p>
+            </div>
+
+        </div>
+
+        <br>
+
+        <button class="secondary" onclick="beginQuestions()">
+            Start Quiz →
+        </button>
+
+    </section>
+
+
+    <!-- Quiz -->
+    <section id="quizScreen" class="card hidden">
+
+        <div class="top-row">
+
+            <h2 id="questionTitle">
+                Question
+            </h2>
+
+            <div id="timer" class="timer">
+                Time: 20s
+            </div>
+
+        </div>
+
+        <div id="progress" class="progress"></div>
+
+        <h2 id="questionText"></h2>
+
+        <div id="options"></div>
+
+        <div id="feedback" class="feedback hidden"></div>
+
+        <div id="score" class="score">
+            Score: 0
+        </div>
+
+        <br>
+
+        <button id="nextButton"
+                class="primary"
+                onclick="nextQuestion()"
+                disabled>
+            Next →
+        </button>
+
+    </section>
+
+
+    <!-- Result -->
+    <section id="resultScreen" class="card hidden">
+
+        <h2>Quiz Finished</h2>
+
+        <div id="finalResult"></div>
+
+        <br>
+
+        <button class="secondary" onclick="location.reload()">
+            Start Again
+        </button>
+
+    </section>
+
+</div>
+
+
+<script>
+
+let currentQuestion = 0;
+let score = 0;
+let attemptsLeft = 3;
+let timer = 20;
+let timerInterval = null;
+let quizStarted = false;
+
+
+function showScreen(screenId) {
+
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("reviewScreen").classList.add("hidden");
+    document.getElementById("quizScreen").classList.add("hidden");
+    document.getElementById("resultScreen").classList.add("hidden");
+
+    document.getElementById(screenId).classList.remove("hidden");
+}
+
+
+async function startQuiz() {
+
+    const name = document.getElementById("studentName").value;
+    const classCode = document.getElementById("classCode").value;
+    const unit = document.getElementById("unit").value;
+
+    const message = document.getElementById("startMessage");
+
+    message.textContent = "";
+
+    if (!name) {
+        message.textContent = "Please select your name.";
+        return;
+    }
+
+    const response = await fetch("/start", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            name: name,
+            class_code: classCode,
+            unit: unit
+        })
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+        message.textContent = data.message;
+        return;
+    }
+
+    quizStarted = true;
+
+    showScreen("reviewScreen");
+}
+
+
+function beginQuestions() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    showScreen("quizScreen");
+
+    loadQuestion();
+}
+
+
+async function loadQuestion() {
+
+    clearInterval(timerInterval);
+
+    document.getElementById("feedback").classList.add("hidden");
+
+    document.getElementById("nextButton").disabled = true;
+
+    const response = await fetch("/question");
+
+    const data = await response.json();
+
+    if (!data.success) {
+        return;
+    }
+
+    document.getElementById("questionTitle").textContent =
+        data.student + " - " + data.unit;
+
+    document.getElementById("questionText").textContent =
+        data.question;
+
+    document.getElementById("progress").textContent =
+        "Question " + data.number + " / " + data.total;
+
+    document.getElementById("score").textContent =
+        "Score: " + score + " / " + data.total;
+
+    const optionsContainer =
+        document.getElementById("options");
+
+    optionsContainer.innerHTML = "";
+
+    data.options.forEach((option, index) => {
+
+        const button = document.createElement("button");
+
+        button.className = "option";
+
+        button.textContent =
+            String.fromCharCode(65 + index) + ". " + option;
+
+        button.onclick = function () {
+            checkAnswer(index);
+        };
+
+        optionsContainer.appendChild(button);
+    });
+
+    startTimer();
+}
+
+
+function startTimer() {
+
+    timer = 20;
+
+    document.getElementById("timer").textContent =
+        "Time: " + timer + "s";
+
+    timerInterval = setInterval(async function () {
+
+        timer--;
+
+        document.getElementById("timer").textContent =
+            "Time: " + timer + "s";
+
+        if (timer <= 0) {
+
+            clearInterval(timerInterval);
+
+            const response = await fetch("/question");
+
+            const data = await response.json();
+
+            showFeedback(
+                "Time is over. Correct answer: " +
+                data.options[data.answer],
+                false
+            );
+
+            document.getElementById("nextButton").disabled = false;
+        }
+
+    }, 1000);
+}
+
+
+async function checkAnswer(index) {
+
+    clearInterval(timerInterval);
+
+    const buttons =
+        document.querySelectorAll(".option");
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+
+    const response = await fetch("/answer", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            answer: index
+        })
+    });
+
+    const data = await response.json();
+
+    if (data.correct) {
+
+        score = data.score;
+
+        showFeedback(
+            data.message + "<br><br>" +
+            data.explanation,
+            true
+        );
+
+        document.getElementById("nextButton").disabled = false;
+
+        return;
+    }
+
+
+    if (!data.finished_question) {
+
+        showFeedback(
+            data.message + "<br><br>" +
+            "TIP: " + data.tip,
+            false
+        );
+
+        attemptsLeft = data.attempts_left;
+
+        buttons.forEach(button => {
+            button.disabled = false;
+        });
+
+        return;
+    }
+
+
+    showFeedback(
+        data.message + "<br><br>" +
+        "Correct answer: " +
+        data.correct_answer +
+        "<br><br>" +
+        data.explanation,
+        false
+    );
+
+    document.getElementById("nextButton").disabled = false;
+}
+
+
+function showFeedback(message, correct) {
+
+    const feedback =
+        document.getElementById("feedback");
+
+    feedback.innerHTML = message;
+
+    feedback.classList.remove("hidden");
+
+    if (correct) {
+        feedback.classList.add("success");
+        feedback.classList.remove("error");
+    } else {
+        feedback.classList.add("error");
+        feedback.classList.remove("success");
+    }
+}
+
+
+async function nextQuestion() {
+
+    clearInterval(timerInterval);
+
+    const response = await fetch("/next", {
+        method: "POST"
+    });
+
+    const data = await response.json();
+
+    if (data.finished) {
+
+        showResult(data);
+
+        return;
+    }
+
+    currentQuestion++;
+
+    loadQuestion();
+}
+
+
+function showResult(data) {
+
+    showScreen("resultScreen");
+
+    document.getElementById("finalResult").innerHTML =
+        "<p><strong>Final Score:</strong> " +
+        data.score +
+        " / " +
+        data.total +
+        "</p>" +
+
+        "<p><strong>Percentage:</strong> " +
+        data.percent +
+        "%</p>";
+}
+
+</script>
+
+</body>
+</html>
