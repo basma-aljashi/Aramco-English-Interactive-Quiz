@@ -1,5 +1,9 @@
 # English Interactive Quiz – Advantage Academy
 
+## Live Demo
+
+[Open the English Interactive Quiz](https://aramco-english-interactive-quiz.onrender.com/)
+
 ## Overview
 
 I developed this interactive English quiz as a learning tool for Advantage Academy, supported by Saudi Aramco. The idea was to give students a simple way to practice English, strengthen their understanding of the course material, and measure their level through interactive questions.
@@ -119,10 +123,6 @@ Contains the Python packages required to run the web version of the application.
 The quiz was designed to connect assessment with learning. Instead of only showing whether an answer is right or wrong, the system provides tips and explanations to help students understand their mistakes and continue practicing.
 
 The recorded results also provide a way to review student performance and identify areas where additional practice may be needed.
-
-## Live Demo
-
-[Open the English Interactive Quiz](https://aramco-english-interactive-quiz.onrender.com/)
 
 ## Project Context
 
